@@ -241,6 +241,7 @@ function chargerDisponibilites() {
                 notes: "Spécialité en html et css",
                 statut: 'Disponible',
                 reserve: false
+            },
             {
                 id: 2,
                 service: 'Microsoft',
