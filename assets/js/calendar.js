@@ -238,10 +238,9 @@ function chargerDisponibilites() {
                 heureDebut: '10:30',
                 heureFin: '12:00',
                 duree: 90,
-                notes: "Spécialité en algèbre linéaire",
+                notes: "Spécialité en html et css",
                 statut: 'Disponible',
                 reserve: false
-            },
             {
                 id: 2,
                 service: 'Microsoft',
@@ -249,7 +248,7 @@ function chargerDisponibilites() {
                 heureDebut: '14:00',
                 heureFin: '15:00',
                 duree: 60,
-                notes: "Mécanique quantique",
+                notes: "spececialité en c#",
                 statut: 'Réservé',
                 reserve: true // Ce créneau ne peut pas être supprimé
             },
@@ -260,7 +259,7 @@ function chargerDisponibilites() {
                 heureDebut: '09:00',
                 heureFin: '09:30',
                 duree: 30,
-                notes: "Aide aux devoirs",
+                notes: "Aide aux developement d'Applications IOS",
                 statut: 'Disponible',
                 reserve: false
             }
