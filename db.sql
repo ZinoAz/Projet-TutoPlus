@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Hôte : 127.0.0.1
--- Généré le : lun. 10 nov. 2025 à 00:21
--- Version du serveur : 10.4.32-MariaDB
--- Version de PHP : 8.2.12
+-- Host: 127.0.0.1
+-- Generation Time: Nov 24, 2025 at 10:14 PM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données : `tutoplus`
+-- Database: `tuto`
 --
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `disponibilites`
+-- Table structure for table `disponibilites`
 --
 
 CREATE TABLE `disponibilites` (
@@ -37,24 +37,23 @@ CREATE TABLE `disponibilites` (
   `duree_minutes` int(11) NOT NULL,
   `notes` text DEFAULT NULL,
   `statut` enum('disponible','reserve') DEFAULT 'disponible',
-  `date_creation` timestamp NOT NULL DEFAULT current_timestamp()
+  `date_creation` timestamp NOT NULL DEFAULT current_timestamp(),
+  `client_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Déchargement des données de la table `disponibilites`
+-- Dumping data for table `disponibilites`
 --
 
-INSERT INTO `disponibilites` (`id`, `tuteur_id`, `service_id`, `date_creneau`, `heure_debut`, `heure_fin`, `duree_minutes`, `notes`, `statut`, `date_creation`) VALUES
-(1, 1, 1, '2025-11-15', '10:30:00', '12:00:00', 90, 'Programmation orientée objet 2', 'disponible', '2025-11-09 00:49:36'),
-(2, 1, 2, '2025-11-12', '14:00:00', '15:00:00', 60, 'Programmation IOS', 'reserve', '2025-11-09 00:49:36'),
-(3, 1, 3, '2025-11-10', '09:00:00', '09:30:00', 30, 'Programmation Web1', 'disponible', '2025-11-09 00:49:36'),
-(4, 2, 1, '2025-11-16', '14:00:00', '15:30:00', 90, 'Programmation Web2', 'disponible', '2025-11-09 00:49:36'),
-(5, 2, 3, '2025-11-13', '10:00:00', '11:00:00', 60, 'Programmation Android', 'disponible', '2025-11-09 00:49:36');
+INSERT INTO `disponibilites` (`id`, `tuteur_id`, `service_id`, `date_creneau`, `heure_debut`, `heure_fin`, `duree_minutes`, `notes`, `statut`, `date_creation`, `client_id`) VALUES
+(4, 2, 1, '2025-11-16', '14:00:00', '15:30:00', 90, 'Programmation orientée objet', 'disponible', '2025-11-09 00:49:36', NULL),
+(5, 2, 5, '2025-11-13', '10:00:00', '11:00:00', 60, 'Programmation Android', 'disponible', '2025-11-09 00:49:36', NULL),
+(9, 1, 1, '2025-11-26', '19:10:00', '00:00:00', 90, 'test', 'reserve', '2025-11-24 21:07:35', 2);
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `reservations`
+-- Table structure for table `reservations`
 --
 
 CREATE TABLE `reservations` (
@@ -69,7 +68,7 @@ CREATE TABLE `reservations` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `services`
+-- Table structure for table `services`
 --
 
 CREATE TABLE `services` (
@@ -80,18 +79,20 @@ CREATE TABLE `services` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Déchargement des données de la table `services`
+-- Dumping data for table `services`
 --
 
 INSERT INTO `services` (`id`, `nom_service`, `description`, `actif`) VALUES
 (1, 'Programmation orientée objet', 'Aide en POO', 1),
 (2, 'Programmation IOS', 'Aide en programmation iOS', 1),
-(3, 'Programmation Web1', 'Aide en développement web', 1);
+(3, 'Programmation Web', 'Aide en développement web', 1),
+(4, 'Réseaux locaux', 'Installation, configuration et maintenance de réseaux locaux', 1),
+(5, 'Programmation Android', 'Développement d’applications mobiles Android', 1);
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `utilisateurs`
+-- Table structure for table `utilisateurs`
 --
 
 CREATE TABLE `utilisateurs` (
@@ -105,21 +106,11 @@ CREATE TABLE `utilisateurs` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Déchargement des données de la table `utilisateurs`
---
-
-INSERT INTO `utilisateurs` (`id`, `nom`, `prenom`, `email`, `mot_de_passe`, `type_utilisateur`, `date_creation`) VALUES
-(1, 'Azouani', 'Zine-Eddine', '202277686@collegeahuntsic.qc.ca', '123456', 'tuteur', '2025-11-09 00:49:36'),
-(2, 'Uludag', 'Ismail', '2023620562@collegeahuntsic.qc.ca', '123456', 'tuteur', '2025-11-09 00:49:36'),
-(3, 'Maher', 'Jeremy-Jay', 'Jeremy-Jay@collegeahuntsic.qc.ca', '123456', 'etudiant', '2025-11-09 00:49:36'),
-(4, 'Boujendar', 'Adam', 'AdamFlawless@collegeahuntsic.qc.ca', '123456', 'etudiant', '2025-11-09 00:49:36');
-
---
--- Index pour les tables déchargées
+-- Indexes for dumped tables
 --
 
 --
--- Index pour la table `disponibilites`
+-- Indexes for table `disponibilites`
 --
 ALTER TABLE `disponibilites`
   ADD PRIMARY KEY (`id`),
@@ -127,7 +118,7 @@ ALTER TABLE `disponibilites`
   ADD KEY `service_id` (`service_id`);
 
 --
--- Index pour la table `reservations`
+-- Indexes for table `reservations`
 --
 ALTER TABLE `reservations`
   ADD PRIMARY KEY (`id`),
@@ -135,59 +126,59 @@ ALTER TABLE `reservations`
   ADD KEY `disponibilite_id` (`disponibilite_id`);
 
 --
--- Index pour la table `services`
+-- Indexes for table `services`
 --
 ALTER TABLE `services`
   ADD PRIMARY KEY (`id`);
 
 --
--- Index pour la table `utilisateurs`
+-- Indexes for table `utilisateurs`
 --
 ALTER TABLE `utilisateurs`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `email` (`email`);
 
 --
--- AUTO_INCREMENT pour les tables déchargées
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT pour la table `disponibilites`
+-- AUTO_INCREMENT for table `disponibilites`
 --
 ALTER TABLE `disponibilites`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
--- AUTO_INCREMENT pour la table `reservations`
+-- AUTO_INCREMENT for table `reservations`
 --
 ALTER TABLE `reservations`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT pour la table `services`
+-- AUTO_INCREMENT for table `services`
 --
 ALTER TABLE `services`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT pour la table `utilisateurs`
+-- AUTO_INCREMENT for table `utilisateurs`
 --
 ALTER TABLE `utilisateurs`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- Contraintes pour les tables déchargées
+-- Constraints for dumped tables
 --
 
 --
--- Contraintes pour la table `disponibilites`
+-- Constraints for table `disponibilites`
 --
 ALTER TABLE `disponibilites`
   ADD CONSTRAINT `disponibilites_ibfk_1` FOREIGN KEY (`tuteur_id`) REFERENCES `utilisateurs` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `disponibilites_ibfk_2` FOREIGN KEY (`service_id`) REFERENCES `services` (`id`) ON DELETE CASCADE;
 
 --
--- Contraintes pour la table `reservations`
+-- Constraints for table `reservations`
 --
 ALTER TABLE `reservations`
   ADD CONSTRAINT `reservations_ibfk_1` FOREIGN KEY (`etudiant_id`) REFERENCES `utilisateurs` (`id`) ON DELETE CASCADE,

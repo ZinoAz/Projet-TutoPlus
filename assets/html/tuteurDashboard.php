@@ -4,16 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Espace Tuteur - Tuto+</title>
-    <link rel="stylesheet" href="../css/calendar.css">
+    <link rel="stylesheet" href="css/calendar.css">
 </head>
 <body>
     <header>
         <div class="logo">
-            <img src="../images/logo-collège-ahuntsic.png" alt="Logo Collège Ahuntsic">
+            <img src="images/logo-collège-ahuntsic.png" alt="Logo Collège Ahuntsic">
         </div>
         <nav class="bar de navigation">
-            <a href="../../public/index.html">Accueil</a>
-            <a href="tuteurDashboard.html">Mon Calendrier</a>
+            <a href="index.php">Accueil</a>
         </nav>
     </header>
 
@@ -35,11 +34,11 @@
                     <label for="service">Service offert *</label>
                     <select id="service" required>
                         <option value="">Sélectionner un service</option>
-                        <option value="POO">Programmation orientée objet</option>
-                        <option value="IOS">Programmation IOS</option>
-                        <option value="Android">Programmation Android</option>
-                        <option value="Web">Programmation Web</option>
-                        <option value="Réseaux">Réseaux</option>
+                        <?php foreach ($services as $service): ?>
+                            <option value="<?= htmlspecialchars($service['id']) ?>">
+                                <?= htmlspecialchars($service['nom_service']) ?>
+                            </option>
+                        <?php endforeach; ?>
                     </select>
                 </div>
 
@@ -67,7 +66,7 @@
             </div>
 
             <div class="form-group">
-                <label for="commentaire">Description / Notes (optionnel)</label>
+                <label for="commentaire">Notes (optionnel)</label>
                 <textarea id="commentaire" rows="3" placeholder="Ex: Coder un site web pour collaboration"></textarea>
             </div>
 
@@ -94,11 +93,9 @@
         </table>
     </main>
 
-    <footer>
-        <p>&copy; 2025 Tuto+, tous droits réservés.</p>
-    </footer>
+    <?php include 'includes/footer.php'; ?>
 
     <!-- LOGIQUE JS pour le calendar -->
-    <script src="../js/calendar.js"></script>
+    <script src="js/tuteurCreneau.js"></script>
 </body>
 </html>
