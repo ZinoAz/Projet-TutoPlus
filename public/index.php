@@ -23,6 +23,9 @@
     } else if ($action === 'client') {
         include __DIR__ . '/../assets/html/clientDashboard.php';
         exit;
+    } else if ($action === 'historique') {  
+        include __DIR__ . '/../assets/html/clientHistorique.php';
+        exit;
     } else if ($action === 'connexion') {
         include __DIR__ . '/../assets/html/mainLogin.php';
         exit;
