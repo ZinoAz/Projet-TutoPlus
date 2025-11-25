@@ -29,6 +29,8 @@
             <label for="serviceSelect">Service de tutorat *</label>
             <select id="serviceSelect">
                 <option value="">-- Choisissez un service --</option>
+
+                <!-- Récupère la liste des services -->
                 <?php foreach ($services as $service): ?>
                     <option value="<?= htmlspecialchars($service['id']) ?>">
                         <?= htmlspecialchars($service['nom_service']) ?>
