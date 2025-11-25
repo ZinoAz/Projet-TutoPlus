@@ -23,7 +23,13 @@
     } else if ($action === 'client') {
         include __DIR__ . '/../assets/html/clientDashboard.php';
         exit;
-    } else if ($action === 'connexion') {
+    } else if ($action === 'admin') {
+        include __DIR__ . '/../assets/html/adminDashboard.php';
+        exit;
+    }else if ($action === 'editUser') {
+    include __DIR__ . '/../assets/html/editUser.php';
+    exit;
+    }else if ($action === 'connexion') {
         include __DIR__ . '/../assets/html/mainLogin.php';
         exit;
     } else if ($action === 'deconnexion') {
@@ -65,7 +71,7 @@
                 <?php elseif ($userType === 'tuteur'): ?>
                     <a href="index.php?action=tuteur">Espace Tuteur</a>
                 <?php elseif ($userType === 'admin'): ?>
-                    <a href="#admin">Espace Admin</a>
+                    <a href="index.php?action=admin">Espace Admin</a>
                 <?php endif; ?>
                 <a href="index.php?action=deconnexion">Déconnexion</a>
             <?php else: ?>

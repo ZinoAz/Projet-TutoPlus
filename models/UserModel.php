@@ -48,5 +48,39 @@ class UserModel {
         $sql->execute(['id' => $id]);
         return $sql->fetch(PDO::FETCH_ASSOC);
     }
+
+     public function getAllUtilisateurs() {
+        $sql = $this->pdo->query("
+            SELECT id, nom, prenom, email, type_utilisateur, date_creation
+            FROM utilisateurs
+            ORDER BY id ASC
+        ");
+        return $sql->fetchAll(PDO::FETCH_ASSOC);
+    }
+     // Mettre à jour un utilisateur existant
+    public function mettreAJourUtilisateur($id, $nom, $prenom, $email, $type) {
+        $sql = $this->pdo->prepare("
+            UPDATE utilisateurs
+            SET nom = :nom,
+                prenom = :prenom,
+                email = :email,
+                type_utilisateur = :type
+            WHERE id = :id
+        ");
+
+        return $sql->execute([
+            'id'    => $id,
+            'nom'   => $nom,
+            'prenom'=> $prenom,
+            'email' => $email,
+            'type'  => $type,
+        ]);
+    }
+
+    // Supprimer un utilisateur
+    public function supprimerUtilisateur($id) {
+        $sql = $this->pdo->prepare("DELETE FROM utilisateurs WHERE id = :id");
+        return $sql->execute(['id' => $id]);
+    }
 }
 ?>
