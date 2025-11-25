@@ -39,6 +39,9 @@
         session_destroy();
         header('Location: index.php');
         exit;
+    }else if ($action === 'statistiques') {
+    include __DIR__ . '/../assets/html/statistiques.php';
+    exit;
     }
 
     $isConnected = isset($_SESSION['user_id']);
