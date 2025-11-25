@@ -258,3 +258,21 @@ table tr:hover {
         font-size: 0.9rem;
     }
 }
+.statut-reserve {
+    color: #0066cc;
+    font-weight: bold;
+}
+
+.statut-complete {
+    color: #28a745;
+    font-weight: bold;
+}
+
+.statut-annule {
+    color: #dc3545;
+    font-weight: bold;
+}
+
+.statut-disponible {
+    color: #6c757d;
+}
