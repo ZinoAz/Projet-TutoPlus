@@ -1,5 +1,4 @@
 <?php
-// ----- PARTIE PHP (avant le HTML) -----
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
@@ -28,6 +27,8 @@ $utilisateurs = $userModel->getAllUtilisateurs();
     </div>
     <nav class="bar de navigation">
         <a href="index.php">Accueil</a>
+        <a href="index.php?action=admin_reservations">Gestion des rendez-vous</a>
+        <a href="index.php?action=deconnexion">Déconnexion</a>
     </nav>
 </header>
 

@@ -6,6 +6,74 @@
             $this->pdo = $pdo;
         }
 
+    // --- ADMIN : lister tous les rendez-vous (disponibilités) ---
+    public function getTousLesRendezVous() {
+    $sql = $this->pdo->query("
+        SELECT 
+            d.id,
+            d.date_creneau,
+            d.heure_debut,
+            d.duree_minutes,
+            d.notes,
+            d.statut,
+            d.date_creation,    
+            d.tuteur_id,      
+            d.client_id,       
+
+            t.nom    AS tuteur_nom,
+            t.prenom AS tuteur_prenom,
+
+            c.nom    AS client_nom,
+            c.prenom AS client_prenom
+
+        FROM disponibilites d
+        JOIN utilisateurs t      ON d.tuteur_id = t.id
+        LEFT JOIN utilisateurs c ON d.client_id = c.id
+        ORDER BY d.date_creneau DESC, d.heure_debut DESC
+    ");
+
+    return $sql->fetchAll(PDO::FETCH_ASSOC);
+}
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    // --- ADMIN : supprimer complètement un créneau ---
+    public function supprimerDisponibilite($id) {
+        $sql = $this->pdo->prepare("DELETE FROM disponibilites WHERE id = :id");
+        return $sql->execute(['id' => $id]);
+    }
+
+    // --- ADMIN : libérer une réservation (remettre disponible) ---
+    public function libererReservation($id) {
+        $sql = $this->pdo->prepare("
+            UPDATE disponibilites
+            SET statut = 'disponible',
+                client_id = NULL
+            WHERE id = :id
+        ");
+        return $sql->execute(['id' => $id]);
+    }
+
+   
+
+
+        
+        
+        
+        
+        
+        
+        
+        
         public function getCreneauxByService($serviceId) {
             $sql = $this->pdo->prepare("
                 SELECT 

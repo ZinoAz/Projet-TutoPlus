@@ -22,7 +22,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (data.success) {
                     if (data.user_type === 'tuteur') {
                         window.location.href = 'index.php?action=tuteur';
-                    } else {
+                    } else if (data.user_type === 'admin') {
+                        window.location.href = 'index.php?action=admin';
+                    } else if (data.user_type === 'etudiant') {
                         window.location.href = 'index.php?action=client';
                     }
                 } else {
