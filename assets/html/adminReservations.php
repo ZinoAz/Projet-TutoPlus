@@ -31,7 +31,8 @@ $rendezVous = $creneauController->getTousLesRendezVous();
     </div>
     <nav class="bar de navigation">
         <a href="index.php">Accueil</a>
-        <a href="index.php?action=admin">Gestion des comptes</a>
+        <a href="index.php?action=admin_reservations">Gestion des Rendez-vous</a>
+        <a href="index.php?action=admin">Gestion des Comptes</a>
         <a href="index.php?action=deconnexion">Déconnexion</a>
     </nav>
 </header>

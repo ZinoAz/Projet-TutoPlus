@@ -12,7 +12,9 @@
         
         <nav class="bar de navigation">
             <a href="index.php">Accueil</a>
-            <a href="index.php?action=client">Espace Client</a>
+            <a href="index.php?action=client">Réserver une Séance</a>
+            <a href="index.php?action=historique">Mon Historique</a>
+            <a href="index.php?action=formulaireContact">Concacter un Tuteur</a>
             <a href="index.php?action=deconnexion">Déconnexion</a>
         </nav>
     </header>

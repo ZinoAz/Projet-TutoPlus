@@ -113,6 +113,9 @@ try {
             $pageContent = null; // Affiche le contenu HTML en bas
             break;
 
+        case 'formulaireContact':
+            $pageContent = __DIR__ . '/../assets/html/formulaireContact.php';
+            break;
         // Action introuvable
         default:
             throw new Exception("Page not found", 404);
@@ -164,8 +167,8 @@ if ($pageContent !== null) {
                 <?php elseif ($userType === 'tuteur'): ?>
                     <a href="index.php?action=tuteur">Espace Tuteur</a>
                 <?php elseif ($userType === 'admin'): ?>
-                    <a href="index.php?action=admin">Gestion des comptes</a>
-                    <a href="index.php?action=admin_reservations">Gestion des rendez-vous</a>
+                    <a href="index.php?action=admin_reservations">Gestion des Rendez-vous</a>
+                    <a href="index.php?action=admin">Gestion des Comptes</a>
                 <?php endif; ?>
                 <a href="index.php?action=deconnexion">Déconnexion</a>
             <?php else: ?>
