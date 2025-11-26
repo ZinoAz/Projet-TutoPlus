@@ -103,10 +103,5 @@ class CreneauController {
         return $this->creneauModel->libererReservation($id);
     }
 
-
-
-
-
-
 }
-?>
+?> 

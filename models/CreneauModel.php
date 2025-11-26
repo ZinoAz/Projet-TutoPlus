@@ -33,25 +33,12 @@
     ");
 
     return $sql->fetchAll(PDO::FETCH_ASSOC);
-}
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+}  
     // --- ADMIN : supprimer complètement un créneau ---
     public function supprimerDisponibilite($id) {
         $sql = $this->pdo->prepare("DELETE FROM disponibilites WHERE id = :id");
         return $sql->execute(['id' => $id]);
     }
-
     // --- ADMIN : libérer une réservation (remettre disponible) ---
     public function libererReservation($id) {
         $sql = $this->pdo->prepare("
@@ -63,17 +50,6 @@
         return $sql->execute(['id' => $id]);
     }
 
-   
-
-
-        
-        
-        
-        
-        
-        
-        
-        
         public function getCreneauxByService($serviceId) {
             $sql = $this->pdo->prepare("
                 SELECT 
