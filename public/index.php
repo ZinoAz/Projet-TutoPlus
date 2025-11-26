@@ -1,64 +1,141 @@
 <?php
-    session_start();
-    
-    require_once __DIR__ . '/../config/database.php';
+session_start();
 
-    //Model
-    require_once __DIR__ . '/../models/ServiceModel.php';
-    require_once __DIR__ . '/../models/CreneauModel.php';
+require_once __DIR__ . '/../config/database.php';
 
-    //Controller
-    require_once __DIR__ . '/../controller/ServiceController.php';
-    require_once __DIR__ . '/../controller/CreneauController.php';
+// Model
+require_once __DIR__ . '/../models/ServiceModel.php';
+require_once __DIR__ . '/../models/CreneauModel.php';
 
-    $controller = new ServiceController($pdo);
-    $services = $controller->getServices();
+// Controller
+require_once __DIR__ . '/../controller/ServiceController.php';
+require_once __DIR__ . '/../controller/CreneauController.php';
 
-    // ROUTER SIMPLE
-    $action = $_GET['action'] ?? 'home';
+// Chargement des services
+$controller = new ServiceController($pdo);
+$services = $controller->getServices();
 
-    if ($action === 'tuteur') {     
-        include __DIR__ . '/../assets/html/tuteurDashboard.php';
-        exit;
-    } else if ($action === 'client') {
-        include __DIR__ . '/../assets/html/clientDashboard.php';
-        exit;
-    } else if ($action === 'historique') {  
-        include __DIR__ . '/../assets/html/clientHistorique.php';
-        exit;
-    } else if ($action === 'admin') {
-        include __DIR__ . '/../assets/html/adminDashboard.php';
-        exit;
-    }
-    else if ($action === 'admin_reservations') {
-    include __DIR__ . '/../assets/html/adminReservations.php';
-    exit;
-    } else if ($action === 'editUser') {
-    include __DIR__ . '/../assets/html/editUser.php';
-    exit;
-    } else if ($action === 'connexion') {
-        include __DIR__ . '/../assets/html/mainLogin.php';
-        exit;
-    } else if ($action === 'deconnexion') {
-        session_destroy();
-        header('Location: index.php');
-        exit;
-    } else if ($action === 'statistiques') {
-        include __DIR__ . '/../assets/html/statistiques.php';
-        exit;
-    } else if ($action === 'confirmationReservation' && isset($_GET['creneau_id'])) {
-        $creneauId = (int) $_GET['creneau_id'];
+// Vérification de connexion
+$isConnected = isset($_SESSION['user_id']);
+$userType = $_SESSION['user_type'] ?? null;
 
-        $creneauController = new CreneauController($pdo);
-        $creneau = $creneauController->getCreneauById($creneauId);
+/**
+ * Vérifie si un utilisateur est du bon type.
+ * Redirige vers la page de connexion si non autorisé.
+ */
+function requireUserType($expectedType) {
+    global $isConnected, $userType;
 
-        include __DIR__ . '/../assets/html/confirmationReservation.php';
+    if (!$isConnected) {
+        header("Location: index.php?action=connexion");
         exit;
     }
 
+    if ($userType !== $expectedType) {
+        throw new Exception("Forbidden", 403);
+    }
+}
 
-    $isConnected = isset($_SESSION['user_id']);
-    $userType = $_SESSION['user_type'] ?? null;
+// ROUTER
+$action = $_GET['action'] ?? 'home';
+$pageContent = null;
+
+try {
+
+    switch ($action) {
+
+        // === ESPACE TUTEUR ===
+        case 'tuteur':
+            requireUserType('tuteur');
+            $pageContent = __DIR__ . '/../assets/html/tuteurDashboard.php';
+            break;
+
+        case 'gestionDemande':
+            requireUserType('tuteur');
+            $pageContent = __DIR__ . '/../assets/html/gestionDemande.php';
+            break;
+
+        // === ESPACE ÉTUDIANT ===
+        case 'client':
+            requireUserType('etudiant');
+            $pageContent = __DIR__ . '/../assets/html/clientDashboard.php';
+            break;
+
+        case 'historique':
+            requireUserType('etudiant');
+            $pageContent = __DIR__ . '/../assets/html/clientHistorique.php';
+            break;
+
+        case 'confirmationReservation':
+            requireUserType('etudiant');
+
+            if (isset($_GET['creneau_id'])) {
+                $creneauId = (int) $_GET['creneau_id'];
+                $creneauController = new CreneauController($pdo);
+                $creneau = $creneauController->getCreneauById($creneauId);
+                $pageContent = __DIR__ . '/../assets/html/confirmationReservation.php';
+            }
+            break;
+
+        // === ADMIN ===
+        case 'admin':
+            requireUserType('admin');
+            $pageContent = __DIR__ . '/../assets/html/adminDashboard.php';
+            break;
+
+        case 'admin_reservations':
+            requireUserType('admin');
+            $pageContent = __DIR__ . '/../assets/html/adminReservations.php';
+            break;
+
+        case 'editUser':
+            requireUserType('admin');
+            $pageContent = __DIR__ . '/../assets/html/editUser.php';
+            break;
+
+        case 'statistiques':
+            requireUserType('tuteur');
+            $pageContent = __DIR__ . '/../assets/html/statistiques.php';
+            break;
+
+        // PUBLIC
+        case 'connexion':
+            $pageContent = __DIR__ . '/../assets/html/mainLogin.php';
+            break;
+
+        case 'deconnexion':
+            session_destroy();
+            header('Location: index.php');
+            exit;
+
+        // Page d'accueil
+        case 'home':
+            $pageContent = null; // Affiche le contenu HTML en bas
+            break;
+
+        // Action introuvable
+        default:
+            throw new Exception("Page not found", 404);
+    }
+
+} catch (Exception $e) {
+
+    if ($e->getCode() === 403) {
+        http_response_code(403);
+        $pageContent = __DIR__ . '/../assets/html/nonAutorise.php';
+    } elseif ($e->getCode() === 404) {
+        http_response_code(404);
+        $pageContent = __DIR__ . '/../assets/html/pageIntrouvable.php';
+    } else {
+        throw $e;
+    }
+}
+
+// Si une page spécifique doit être chargée, on l'affiche puis on stoppe l'exécution
+if ($pageContent !== null) {
+    include $pageContent;
+    exit;
+}
 ?>
 
 <!DOCTYPE html>
@@ -83,7 +160,7 @@
             
             <?php if ($isConnected): ?>
                 <?php if ($userType === 'etudiant'): ?>
-                    <a href="index.php?action=client">Espace Client</a>
+                    <a href="index.php?action=etudiant">Espace Client</a>
                 <?php elseif ($userType === 'tuteur'): ?>
                     <a href="index.php?action=tuteur">Espace Tuteur</a>
                 <?php elseif ($userType === 'admin'): ?>
