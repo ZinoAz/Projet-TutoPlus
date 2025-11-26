@@ -14,6 +14,7 @@
         <nav class="bar de navigation">
             <a href="index.php">Accueil</a>
             <a href="index.php?action=historique">Mon Historique</a>
+            <a href="index.php?action=deconnexion">Déconnexion</a>
         </nav>
     </header>
 

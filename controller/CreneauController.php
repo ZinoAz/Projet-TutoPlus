@@ -97,5 +97,19 @@ class CreneauController {
         }
         return null;
     }
+
+  // --- ADMIN ---
+    public function getTousLesRendezVous() {
+        return $this->creneauModel->getTousLesRendezVous();
+    }
+
+    public function supprimerDisponibilite($id) {
+        return $this->creneauModel->supprimerDisponibilite($id);
+    }
+
+    public function libererReservation($id) {
+        return $this->creneauModel->libererReservation($id);
+    }
+
 }
-?>
+?> 
