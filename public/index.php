@@ -76,9 +76,7 @@
     <!-- HEADER -->
     <header>
 
-        <div class="logo">
-            <img src="images/logo-collège-ahuntsic.png" alt="Logo du Collège Ahuntsic">
-        </div>
+        <?php include __DIR__ . '/../assets/html/includes/header.php'; ?>
 
         <div class="bar de navigation">
             <a href="index.php">Accueil</a>

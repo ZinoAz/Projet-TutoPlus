@@ -73,7 +73,9 @@ $utilisateurs = $userModel->getAllUtilisateurs();
     <section>
         <h2>Liste des utilisateurs</h2>
 
-        <table border="1" cellpadding="8" style="border-collapse: collapse; width: 100%;">
+        <!-- Il y a une petite erreur ici, donc j'ai retiré l'erreur et mis en commentaire -->
+        <!-- <table border="1" cellpadding="8" style="border-collapse: collapse; width: 100%;"> -->
+        <table cellpadding="8" style="border-collapse: collapse; width: 100%;"></table>
             <thead>
             <tr>
                 <th>ID</th>

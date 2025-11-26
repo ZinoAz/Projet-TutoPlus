@@ -25,11 +25,11 @@ if (!$utilisateur) {
 </head>
 <body>
 <header>
-    <div class="logo">
-        <img src="images/logo-collège-ahuntsic.png" alt="Logo Collège Ahuntsic">
-    </div>
+    <?php include __DIR__ . '/includes/header.php'; ?>
+    
     <nav class="bar de navigation">
         <a href="index.php?action=admin">Retour au dashboard</a>
+        <a href="index.php?action=deconnexion">Déconnexion</a>
     </nav>
 </header>
 
