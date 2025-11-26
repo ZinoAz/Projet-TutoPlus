@@ -72,7 +72,7 @@ class CreneauController {
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
         }
-        
+            
         if (!isset($_SESSION['user_id'])) {
             echo json_encode(['success' => false, 'message' => 'Non connecté']);
             return;
@@ -80,14 +80,22 @@ class CreneauController {
         
         $data = json_decode(file_get_contents('php://input'), true);
         $clientId = $_SESSION['user_id'];
+        $creneauId = $data['creneau_id'];
         
-        $result = $this->creneauModel->reserverCreneau($data['creneau_id'], $clientId);
-        
-        if ($result) {
-            echo json_encode(['success' => true, 'message' => 'Créneau réservé avec succès']);
-        } else {
-            echo json_encode(['success' => false, 'message' => 'Erreur lors de la réservation']);
+        $result = $this->creneauModel->reserverCreneau($creneauId, $clientId);
+
+        echo json_encode([
+            'success' => $result,
+            'creneau_id' => $creneauId
+        ]);
+    }
+
+    public function getCreneauById($id) {
+        $creneau = $this->creneauModel->getCreneauById($id);
+        if ($creneau) {
+            return $creneau;
         }
+        return null;
     }
 }
 ?>

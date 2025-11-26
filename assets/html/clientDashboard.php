@@ -13,7 +13,8 @@
         </div>
         <nav class="bar de navigation">
             <a href="index.php">Accueil</a>
-            <a href="index.php?action=historique">Mon historique</a> 
+            <a href="index.php?action=historique">Mon Historique</a>
+        </nav>
     </header>
 
     <main>

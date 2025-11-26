@@ -13,6 +13,7 @@
         </div>
         <nav class="bar de navigation">
             <a href="index.php">Accueil</a>
+            <a href="index.php?action=client">Espace Client</a>
         </nav>
     </header>
 

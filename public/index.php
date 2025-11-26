@@ -39,10 +39,19 @@
         session_destroy();
         header('Location: index.php');
         exit;
-    }else if ($action === 'statistiques') {
-    include __DIR__ . '/../assets/html/statistiques.php';
-    exit;
+    } else if ($action === 'statistiques') {
+        include __DIR__ . '/../assets/html/statistiques.php';
+        exit;
+    } else if ($action === 'confirmationReservation' && isset($_GET['creneau_id'])) {
+        $creneauId = (int) $_GET['creneau_id'];
+
+        $creneauController = new CreneauController($pdo);
+        $creneau = $creneauController->getCreneauById($creneauId);
+
+        include __DIR__ . '/../assets/html/confirmationReservation.php';
+        exit;
     }
+
 
     $isConnected = isset($_SESSION['user_id']);
     $userType = $_SESSION['user_type'] ?? null;

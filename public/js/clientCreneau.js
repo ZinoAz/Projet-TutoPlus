@@ -96,11 +96,7 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                // Recharger les créneaux pour mettre à jour l'affichage
-                const serviceId = serviceSelect.value;
-                if (serviceId) {
-                    serviceSelect.dispatchEvent(new Event('change'));
-                }
+                window.location.href = `index.php?action=confirmationReservation&creneau_id=${creneauId}`;
             } else {
                 console.error('Erreur:', data.message);
             }

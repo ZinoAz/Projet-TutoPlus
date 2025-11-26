@@ -102,5 +102,44 @@
                 'client_id' => $clientId
             ]);
         }
+
+        public function getCreneauById($creneauId) {
+            $sql = $this->pdo->prepare("
+                SELECT 
+                    d.*,
+                    u.nom as tuteur_nom,
+                    u.prenom as tuteur_prenom,
+                    s.nom_service as service_nom
+                FROM disponibilites d
+                LEFT JOIN utilisateurs u ON d.tuteur_id = u.id AND u.type_utilisateur = 'tuteur'
+                LEFT JOIN services s ON d.service_id = s.id
+                WHERE d.id = :id
+                LIMIT 1
+            ");
+
+            $sql->execute(['id' => $creneauId]);
+            $row = $sql->fetch(PDO::FETCH_ASSOC);
+
+            if (!$row) {
+                return null;
+            }
+
+            $tuteurNomComplet = trim(($row['tuteur_prenom'] ?? '') . ' ' . ($row['tuteur_nom'] ?? ''));
+            if (empty($tuteurNomComplet)) {
+                $tuteurNomComplet = 'Non spécifié';
+            }
+
+            return [
+                'id' => $row['id'],
+                'date' => $row['date_creneau'],
+                'heure' => $row['heure_debut'],
+                'duree' => $row['duree_minutes'],
+                'tuteur_nom' => $tuteurNomComplet,
+                'service_nom' => $row['service_nom'] ?? 'Non spécifié',
+                'commentaire' => $row['notes'] ?? '',
+                'statut' => $row['statut'],
+                'client_id' => $row['client_id'] ?? null
+            ];
+        }
     }
 ?>
