@@ -7,37 +7,45 @@ class AuthController {
     }
 
     // Gérer la connexion
-    public function login() {
-        $data = json_decode(file_get_contents('php://input'), true);
+   public function login() {
+    $data = json_decode(file_get_contents('php://input'), true);
 
-        $email = $data['email'] ?? '';
-        $password = $data['password'] ?? '';
+    $email = $data['email'] ?? '';
+    $password = $data['password'] ?? '';
 
-        if (empty($email) || empty($password)) {
-            echo json_encode(['success' => false, 'message' => 'Email et mot de passe requis']);
-            return;
-        }
-
-        $user = $this->userModel->verifierConnexion($email, $password);
-
-        if ($user) {
-            $_SESSION['user_id'] = $user['id'];
-            $_SESSION['user_type'] = $user['type_utilisateur'];
-            $_SESSION['user_nom'] = $user['nom'];
-            $_SESSION['user_prenom'] = $user['prenom'];
-            
-            echo json_encode([
-                'success' => true,
-                'user_type' => $user['type_utilisateur'],
-                'message' => 'Connexion réussie'
-            ]);
-        } else {
-            echo json_encode([
-                'success' => false,
-                'message' => 'Email ou mot de passe incorrect'
-            ]);
-        }
+    if (empty($email) || empty($password)) {
+        echo json_encode(['success' => false, 'message' => 'Email et mot de passe requis']);
+        return;
     }
+
+    $user = $this->userModel->verifierConnexion($email, $password);
+
+    if ($user === 'inactive') {
+        echo json_encode([
+            'success' => false,
+            'message' => 'Votre compte est désactivé. Contactez un administrateur.'
+        ]);
+        return;
+    }
+    if ($user && is_array($user)) {
+        $_SESSION['user_id'] = $user['id'];
+        $_SESSION['user_type'] = $user['type_utilisateur'];
+        $_SESSION['user_nom'] = $user['nom'];
+        $_SESSION['user_prenom'] = $user['prenom'];
+        
+        echo json_encode([
+            'success' => true,
+            'user_type' => $user['type_utilisateur'],
+            'message' => 'Connexion réussie'
+        ]);
+        return;
+    }
+    echo json_encode([
+        'success' => false,
+        'message' => 'Email ou mot de passe incorrect'
+    ]);
+}
+
 
     // Gérer l'inscription
     public function register() {

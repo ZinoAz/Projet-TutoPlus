@@ -4,8 +4,6 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-// toujours utiliser include ici, pas require_once,
-// parce que database.php *retourne* un PDO.
 $pdo = include __DIR__ . '/../../config/database.php';
 
 require_once __DIR__ . '/../../models/UserModel.php';
@@ -83,6 +81,7 @@ $utilisateurs = $userModel->getAllUtilisateurs();
                 <th>Email</th>
                 <th>Rôle</th>
                 <th>Date d’inscription</th>
+                <th>Actif</th> 
                 <th>Actions</th>
             </tr>
             </thead>
@@ -96,9 +95,22 @@ $utilisateurs = $userModel->getAllUtilisateurs();
                         <td><?= htmlspecialchars($u['email']) ?></td>
                         <td><?= htmlspecialchars($u['type_utilisateur']) ?></td>
                         <td><?= htmlspecialchars($u['date_creation']) ?></td>
+                        
+                  <td>
+    <input type="checkbox"
+           class="toggle-actif"
+           data-id="<?= (int)$u['id'] ?>"
+           <?= $u['actif'] ? 'checked' : '' ?>>
+</td>
+                        
                         <td>
                             <!-- Bouton modifier -->
-                            <a href="index.php?action=editUser&id=<?= (int)$u['id'] ?>">Modifier</a>
+                           <form action="index.php" method="GET" style="display:inline;">
+    <input type="hidden" name="action" value="editUser">
+    <input type="hidden" name="id" value="<?= (int)$u['id'] ?>">
+    <button type="submit">Modifier</button>
+</form>
+
 
                             <!-- Bouton supprimer -->
                             <form method="POST"
@@ -122,5 +134,6 @@ $utilisateurs = $userModel->getAllUtilisateurs();
 <?php include __DIR__ . '/includes/footer.php'; ?>
 
 <script src="js/clientCreneau.js"></script>
+<script src="js/adminActivation.js"></script>
 </body>
 </html>
