@@ -108,9 +108,12 @@
             $sql = $this->pdo->prepare("
                 SELECT 
                     d.*,
-                    s.nom_service as service_nom
+                    s.nom_service AS service_nom,
+                    u.nom AS client_nom,
+                    u.prenom AS client_prenom
                 FROM disponibilites d
                 LEFT JOIN services s ON d.service_id = s.id
+                LEFT JOIN utilisateurs u ON d.client_id = u.id
                 WHERE d.tuteur_id = :tuteur_id
                 ORDER BY d.date_creneau DESC, d.heure_debut DESC
             ");
@@ -135,7 +138,7 @@
         public function reserverCreneau($creneauId, $clientId) {
             $sql = $this->pdo->prepare("
                 UPDATE disponibilites 
-                SET statut = 'reserve', 
+                SET statut = 'enattente', 
                     client_id = :client_id 
                 WHERE id = :id 
                 AND statut = 'disponible'
@@ -144,6 +147,39 @@
             return $sql->execute([
                 'id' => $creneauId,
                 'client_id' => $clientId
+            ]);
+        }
+
+        public function accepterCreneau($creneauId, $tuteurId) {
+            // On accepte un créneau uniquement s'il est en attente et appartient au tuteur
+            $sql = $this->pdo->prepare("
+                UPDATE disponibilites 
+                SET statut = 'reserve' 
+                WHERE id = :id 
+                AND tuteur_id = :tuteur_id
+                AND statut = 'enattente'
+            ");
+
+            return $sql->execute([
+                'id' => $creneauId,
+                'tuteur_id' => $tuteurId
+            ]);
+        }
+
+        public function refuserCreneau($creneauId, $tuteurId) {
+            // On refuse un créneau uniquement s'il est en attente et appartient au tuteur
+            $sql = $this->pdo->prepare("
+                UPDATE disponibilites 
+                SET statut = 'disponible',
+                    client_id = NULL
+                WHERE id = :id 
+                AND tuteur_id = :tuteur_id
+                AND statut = 'enattente'
+            ");
+
+            return $sql->execute([
+                'id' => $creneauId,
+                'tuteur_id' => $tuteurId
             ]);
         }
 

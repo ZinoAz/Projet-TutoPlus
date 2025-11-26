@@ -69,7 +69,22 @@ function afficherCreneaux(creneaux) {
         const fin = new Date(debut.getTime() + creneau.duree_minutes * 60000);
         const horaire = `${creneau.heure_debut} - ${fin.toTimeString().substring(0, 5)}`;
         
-        const statut = creneau.statut === 'disponible' ? 'Disponible' : 'Réservé';
+        let statut;
+
+        if (creneau.statut === 'reserve') {
+            statut = 'Réservé';
+        } else if (creneau.statut === 'enattente') {
+            statut = 'En attente';
+        } else if (creneau.statut === 'confirmee') {
+            statut = 'Confirmé';
+        } else if (creneau.statut === 'annulee') {
+            statut = 'Annulé';
+        } else if (creneau.statut === 'completee') {
+            statut = 'Complété';
+        } else {
+            statut = 'Disponible';
+        }
+
         const peutSupprimer = creneau.statut === 'disponible';
         
         tr.innerHTML = `
@@ -77,13 +92,13 @@ function afficherCreneaux(creneaux) {
             <td>${horaire}</td>
             <td>${creneau.duree_minutes} min</td>
             <td>${creneau.service_nom}</td>
-            <td><span class="statut-${creneau.statut}">${statut}</span></td>
+            <td><span">${statut}</span></td>
             <td>${creneau.notes || '-'}</td>
             <td>
                 ${peutSupprimer ? 
-                    `<button class="btn-supprimer" onclick="supprimerCreneau(${creneau.id})">Supprimer</button>` 
-                    : '<em>Non modifiable</em>'}
-            </td>
+                    `<button class="btn-supprimer" onclick="supprimerCreneau(${creneau.id})">Supprimer</button>`: 
+                    '<button style="background-color: grey;" class="btn-supprimer">Supprimer</button>'
+            }</td>
         `;
         
         tbody.appendChild(tr);

@@ -61,7 +61,8 @@ function getStatutLabel(statut) {
         'annulee': 'Annulée',
         'completee': 'Complétée',
         'reserve': 'Réservée',
-        'disponible': 'Disponible'
+        'disponible': 'Disponible',
+        'enattente': 'En attente',
     };
     return labels[statut] || statut;
 }

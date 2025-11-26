@@ -160,7 +160,7 @@ if ($pageContent !== null) {
             
             <?php if ($isConnected): ?>
                 <?php if ($userType === 'etudiant'): ?>
-                    <a href="index.php?action=etudiant">Espace Client</a>
+                    <a href="index.php?action=client">Espace Client</a>
                 <?php elseif ($userType === 'tuteur'): ?>
                     <a href="index.php?action=tuteur">Espace Tuteur</a>
                 <?php elseif ($userType === 'admin'): ?>

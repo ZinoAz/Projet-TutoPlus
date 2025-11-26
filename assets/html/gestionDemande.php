@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Confirmation de réservation - Tuto+</title>
+    <title>Mes demandes - Tuto+</title>
     <link rel="stylesheet" href="css/calendar.css">
 </head>
 <body>
@@ -21,14 +21,33 @@
 
     <main class="confirmation-container">
 
-        <h1>Réservation confirmée</h1>
+        <h1>Mes demandes</h1>
 
         <div class="info-box">
-            <p><strong>Votre réservation est confirmée !</strong> Merci d’avoir réservé votre créneau. Vous pouvez consulter les détails ci-dessous et retrouver vos réservations à tout moment dans votre historique. Pensez à noter la date et l’heure de votre rendez-vous.</p>
+            <p><strong>Voici vos demandes en cours !</strong> Vous pouvez consulter le statut de chaque réservation,
+            les détails de vos créneaux et accéder à votre historique à tout moment. Pensez à vérifier régulièrement
+            vos demandes pour rester à jour.</p>
         </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Réservé par</th>
+                    <th>Date</th>
+                    <th>Heure</th>
+                    <th>Durée</th>
+                    <th>Service</th>
+                    <th>Notes</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="creneauxBody">
+            </tbody>
+        </table>
     </main>
 
     <?php include 'includes/footer.php'; ?>
 
+    <script src="js/gestionDemande.js"></script>
 </body>
 </html>

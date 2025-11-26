@@ -193,7 +193,7 @@ h2 {
 }
 
 #listeCreneaux {
-    display: none;
+    display: block;
 }
 
 /* TABLEAU */
