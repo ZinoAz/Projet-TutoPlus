@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 tbody.innerHTML = ""; // vider le tbody
 
                 if (demandesEnAttente.length === 0) {
-                    tbody.innerHTML = `<tr><td colspan="6">Aucune demande en attente.</td></tr>`;
+                    tbody.innerHTML = `<tr><td colspan="6"><p>Aucune demande en attente.</p></td></tr>`;
                     return;
                 }
 

@@ -11,8 +11,9 @@
         <?php include __DIR__ . '/includes/header.php'; ?>
         <nav class="bar de navigation">
             <a href="index.php">Accueil</a>
-            <a href="index.php?action=statistiques">Mes statistiques</a>
+            <a href="index.php?action=tuteur">Mes disponibilités</a>
             <a href="index.php?action=gestionDemande">Mes demandes</a>
+            <a href="index.php?action=statistiques">Mes statistiques</a>
             <a href="index.php?action=deconnexion">Déconnexion</a>
         </nav>
     </header>
