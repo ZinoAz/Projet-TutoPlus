@@ -77,6 +77,11 @@ try {
             }
             break;
 
+        case 'confirmationMessage':
+            requireUserType('etudiant');
+            $pageContent = __DIR__ . '/../assets/html/confirmationMessage.php';
+            break;
+
         // === ADMIN ===
         case 'admin':
             requireUserType('admin');

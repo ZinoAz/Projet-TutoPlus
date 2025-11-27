@@ -40,38 +40,37 @@
             </tbody>
         </table>
 
-        <div id="contactFormContainer" class="contact-form-container" style="display: none;">
-            <div class="contact-form-wrapper">
-                <h2>Envoyer un message à <span id="tuteurNom"></span></h2>                
-                <form id="contactForm">
-                    <input type="hidden" id="tuteurEmail" name="tuteurEmail">
-                    
-                    <div class="form-group">
-                        <label for="nom">Votre nom :</label>
-                        <input type="text" id="nom" name="nom" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="email">Votre email :</label>
-                        <input type="email" id="email" name="email" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="sujet">Sujet :</label>
-                        <input type="text" id="sujet" name="sujet" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="message">Message :</label>
-                        <textarea id="message" name="message" rows="5" required></textarea>
-                    </div>
-                    
-                    <div class="form-actions">
-                        <button type="submit" class="btn-submit">Envoyer</button>
-                        <button type="button" id="cancelFormBtn" class="btn-cancel">Annuler</button>
-                    </div>
-                </form>
-            </div>
+        <div class="contact-form-wrapper" style="display: none;">
+            <h2>Envoyer un message à <span id="tuteurNom"></span></h2>
+
+            <form id="contactForm">
+                <input type="hidden" id="tuteurId" name="tuteurId">
+
+                <div class="form-group">
+                    <label for="nom">Votre nom :</label>
+                    <input type="text" id="nom" name="nom" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="prenom">Votre prénom :</label>
+                    <input type="text" id="prenom" name="prenom" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="sujet">Sujet :</label>
+                    <input type="text" id="sujet" name="sujet" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="message">Message :</label>
+                    <textarea id="message" name="message" rows="5" required></textarea>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn-submit">Envoyer</button>
+                    <button type="button" id="cancelFormBtn" class="btn-cancel">Annuler</button>
+                </div>
+            </form>
         </div>
     </main>
 
