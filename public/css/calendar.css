@@ -22,16 +22,22 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
 }
 
 .logo img {
     height: 60px;
 }
 
+.bar.de.navigation {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
 .bar.de.navigation a {
     color: #333;
     text-decoration: none;
-    margin-left: 2rem;
     padding: 0.5rem 1rem;
     border-radius: 4px;
     transition: 0.3s;
@@ -99,6 +105,8 @@ button {
     border-radius: 5px;
     cursor: pointer;
     transition: 0.3s;
+    width: 100%;
+    max-width: 300px;
 }
 
 button:hover {
@@ -227,37 +235,7 @@ table tr:hover {
     background: #f8f9fa;
 }
 
-/* RESPONSIVE */
-@media (max-width: 768px) {
-    header {
-        flex-direction: column;
-        gap: 1rem;
-    }
-    
-    .bar.de.navigation a {
-        display: block;
-        margin: 0.5rem 0;
-        text-align: center;
-    }
-    
-    main {
-        margin: 1rem;
-        padding: 1.5rem;
-    }
-    
-    h1 {
-        font-size: 2rem;
-    }
-    
-    .form-row,
-    .filter-row {
-        grid-template-columns: 1fr;
-    }
-    
-    table {
-        font-size: 0.9rem;
-    }
-}
+/* STATUTS */
 .statut-reserve {
     color: #0066cc;
     font-weight: bold;
@@ -276,6 +254,8 @@ table tr:hover {
 .statut-disponible {
     color: #6c757d;
 }
+
+/* STATISTIQUES */
 .stats-container {
     display: flex;
     gap: 20px;
@@ -322,4 +302,266 @@ table tr:hover {
 
 .chart-container canvas {
     max-height: 400px;
+    width: 100% !important;
+    height: auto !important;
+}
+
+/* RESPONSIVE - TABLETTES (768px et moins) */
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        gap: 1rem;
+        padding: 1rem;
+    }
+    
+    .logo img {
+        height: 50px;
+    }
+    
+    .bar.de.navigation {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .bar.de.navigation a {
+        padding: 0.5rem 0.8rem;
+        font-size: 0.95rem;
+    }
+    
+    main {
+        margin: 1rem;
+        padding: 1.5rem;
+    }
+    
+    h1 {
+        font-size: 2rem;
+    }
+    
+    h4 {
+        font-size: 1.3rem;
+    }
+    
+    p {
+        font-size: 1rem;
+    }
+    
+    .aide-devoir,
+    .tutorat-en-ligne,
+    .enseignement {
+        padding: 1.5rem;
+    }
+    
+    .form-row,
+    .filter-row {
+        grid-template-columns: 1fr;
+    }
+    
+    .filter-row button {
+        width: 100%;
+        max-width: none;
+    }
+    
+    button {
+        max-width: none;
+    }
+    
+    /* Tableau responsive avec scroll horizontal */
+    .table-wrapper {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    table {
+        font-size: 0.9rem;
+        min-width: 600px;
+    }
+    
+    table th,
+    table td {
+        padding: 0.7rem 0.5rem;
+    }
+    
+    .stats-container {
+        gap: 15px;
+        margin: 20px 0;
+    }
+    
+    .stat-card {
+        min-width: calc(50% - 10px);
+        padding: 15px;
+    }
+    
+    .stat-number {
+        font-size: 28px;
+    }
+    
+    .chart-container {
+        padding: 20px;
+        margin: 20px 0;
+    }
+    
+    .chart-container h2 {
+        font-size: 1.3rem;
+    }
+}
+
+/* RESPONSIVE - MOBILES (480px et moins) */
+@media (max-width: 480px) {
+    header {
+        padding: 0.8rem;
+    }
+    
+    .logo img {
+        height: 40px;
+    }
+    
+    .bar.de.navigation {
+        flex-direction: column;
+        width: 100%;
+    }
+    
+    .bar.de.navigation a {
+        width: 100%;
+        text-align: center;
+        padding: 0.6rem;
+        margin: 0.2rem 0;
+    }
+    
+    main {
+        margin: 0.5rem;
+        padding: 1rem;
+        border-radius: 5px;
+    }
+    
+    h1 {
+        font-size: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    h2 {
+        font-size: 1.3rem;
+        margin: 1.5rem 0 0.8rem 0;
+    }
+    
+    h4 {
+        font-size: 1.2rem;
+    }
+    
+    p {
+        font-size: 0.95rem;
+    }
+    
+    .aide-devoir,
+    .tutorat-en-ligne,
+    .enseignement {
+        padding: 1rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    button {
+        padding: 0.7rem 1.5rem;
+        font-size: 0.95rem;
+    }
+    
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        padding: 0.6rem;
+        font-size: 0.95rem;
+    }
+    
+    .info-box {
+        padding: 0.8rem;
+        font-size: 0.9rem;
+    }
+    
+    .filter-section {
+        padding: 1rem;
+    }
+    
+    table {
+        font-size: 0.85rem;
+        min-width: 500px;
+    }
+    
+    table th,
+    table td {
+        padding: 0.6rem 0.4rem;
+    }
+    
+    .stats-container {
+        gap: 10px;
+        margin: 15px 0;
+    }
+    
+    .stat-card {
+        min-width: 100%;
+        padding: 15px;
+    }
+    
+    .stat-card h3 {
+        font-size: 14px;
+    }
+    
+    .stat-number {
+        font-size: 24px;
+    }
+    
+    .chart-container {
+        padding: 15px;
+        margin: 15px 0;
+    }
+    
+    .chart-container h2 {
+        font-size: 1.1rem;
+        margin-bottom: 15px;
+    }
+    
+    .chart-container canvas {
+        max-height: 300px;
+    }
+    
+    footer {
+        padding: 1.5rem 1rem;
+        font-size: 0.9rem;
+    }
+}
+
+/* RESPONSIVE - TRÈS PETITS ÉCRANS (320px et moins) */
+@media (max-width: 320px) {
+    .logo img {
+        height: 35px;
+    }
+    
+    h1 {
+        font-size: 1.3rem;
+    }
+    
+    main {
+        padding: 0.8rem;
+    }
+    
+    button {
+        padding: 0.6rem 1rem;
+        font-size: 0.9rem;
+    }
+    
+    .stat-number {
+        font-size: 20px;
+    }
+}
+
+/* AMÉLIORATION POUR GRANDS ÉCRANS */
+@media (min-width: 1400px) {
+    main {
+        max-width: 1400px;
+    }
+    
+    .stats-container {
+        gap: 30px;
+    }
+    
+    .stat-card {
+        min-width: 250px;
+    }
 }
